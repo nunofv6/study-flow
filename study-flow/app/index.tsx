@@ -1,6 +1,8 @@
-import { Text, View } from "react-native";
+import { useRouter } from "expo-router";
+import { Text, View, Button } from "react-native";
 
 export default function Index() {
+  const router = useRouter();
   return (
       <View
         style={{
@@ -9,6 +11,7 @@ export default function Index() {
           alignItems: "center",
         }}
       >
+        <Button title="Go to About" onPress={() => router.push("/about")} />
         <Text>Study Flow</Text>
       </View>
   );
