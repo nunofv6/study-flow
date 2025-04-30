@@ -1,8 +1,16 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { useRouter } from "expo-router";
+import { useNavigation, useRouter } from "expo-router";
+import { useEffect } from "react";
 
 const Profile = () => {
     const router = useRouter();
+      const navigation = useNavigation();
+      useEffect(() => {
+        navigation.setOptions({
+          headerShown: false,
+        });
+      }, [navigation]);
+    
 
 
   return (
