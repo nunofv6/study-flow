@@ -7,23 +7,6 @@ const Dashboard = () => {
 
   return (
     <View style={styles.container}>
-      {/* Top Bar */}
-      <View style={styles.topBar}>
-        <TouchableOpacity onPress={() => router.push('')}>
-          <Image
-            source={require('../assets/images/Menu.png')} // Substitua pelo caminho da sua imagem
-            style={styles.icon}
-          />
-        </TouchableOpacity>
-        <Text style={styles.title}>Dashboard</Text>
-        <TouchableOpacity onPress={() => router.push('/profile')}>
-          <Image
-            source={require('../assets/images/User.png')} // Substitua pelo caminho da sua imagem
-            style={styles.icon}
-          />
-        </TouchableOpacity>
-      </View>
-
       {/* Content */}
       <View style={styles.content}>
         {/* First Card */}
@@ -36,7 +19,7 @@ const Dashboard = () => {
           <Text style={styles.cardSubtitle}>Let us create your first study plan!</Text>
           <TouchableOpacity
             style={styles.addButton}
-            onPress={() => router.push('/schedule')}
+            onPress={() => router.push('/Schedule')}
           >
             <Text style={styles.addButtonText}>+</Text>
           </TouchableOpacity>

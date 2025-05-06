@@ -1,58 +1,95 @@
 import { useRouter } from "expo-router";
-import { useLayoutEffect } from 'react';
-import { StyleSheet, Text, View, Button, FlatList, ScrollView, TouchableOpacity } from "react-native";
+import { useLayoutEffect, useState } from 'react';
+import moment from "moment"
+import Timetable from 'react-native-calendar-timetable'
+import { StyleSheet, Text, View, Button, FlatList, Image, ScrollView, TouchableOpacity } from "react-native";
 
 const Schedule = () => {
     const router = useRouter();
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text>Schedule</Text>
-            <View>
-            </View>
+          <View style={styles.content}>
+          </View>
         </ScrollView>
     );
 }
 
-Schedule.options = {
-    headerShown: false
-  };
-
-const styles = StyleSheet.create({
+  const styles = StyleSheet.create({
     container: {
-      padding: 20,
-      paddingBottom: 60,
-      backgroundColor: "#F8F9FA",
+      flex: 1,
+      backgroundColor: '#f5e4e5', // Light pink background
     },
-    header: {
-      fontSize: 28,
-      fontWeight: "bold",
-      marginBottom: 20,
-      textAlign: "center",
+    topBar: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      backgroundColor: '#d9b4b5', // Darker pink
+      paddingHorizontal: 16,
+      paddingVertical: 12,
     },
-    cardGrid: {
-      flexDirection: "row",
-      flexWrap: "wrap",
-      justifyContent: "space-between",
+    title: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      color: '#000',
+    },
+    icon: {
+      width: 24,
+      height: 24,
+    },
+    content: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingHorizontal: 16,
     },
     card: {
-      width: "48%",
-      height: 100,
-      backgroundColor: "#fff",
-      borderRadius: 10,
-      justifyContent: "center",
-      alignItems: "center",
-      marginBottom: 15,
-      elevation: 2,
-      shadowColor: "#000",
-      shadowOpacity: 0.1,
+      backgroundColor: '#fff',
+      borderRadius: 8,
+      padding: 16,
+      marginBottom: 16,
+      alignItems: 'center',
+      width: '90%',
+      shadowColor: '#000',
       shadowOffset: { width: 0, height: 2 },
-      shadowRadius: 6,
+      shadowOpacity: 0.2,
+      shadowRadius: 4,
+      elevation: 5,
     },
-    cardText: {
-      fontSize: 16,
-      fontWeight: "600",
-      color: "#333",
+    cardIcon: {
+      width: 48,
+      height: 48,
+      marginBottom: 8,
+    },
+    cardTitle: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      marginBottom: 4,
+    },
+    cardSubtitle: {
+      fontSize: 14,
+      textAlign: 'center',
+      color: '#555',
+      marginBottom: 12,
+    },
+    addButton: {
+      backgroundColor: '#000',
+      borderRadius: 50,
+      paddingVertical: 6,
+      paddingHorizontal: 16,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    addButtonText: {
+      fontSize: 26,
+      color: '#fff',
+      fontWeight: 'bold',
+    },
+    cardTime: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      marginBottom: 4,
     },
 });
 
