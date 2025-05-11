@@ -1,100 +1,60 @@
-import { useRouter } from "expo-router";
-import React from "react";
-import { useLayoutEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, ScrollView, Modal } from 'react-native';
+import Timetable from 'react-native-calendar-timetable'
 import moment from "moment"
-import { StyleSheet, Text, View, Button, FlatList, Image, ScrollView, TouchableOpacity } from "react-native";
-import FullCalendar from '@fullcalendar/react'
-import timeGridPlugin from '@fullcalendar/timegrid'
+import ScheduleBlobs from '@/components/ScheduleBlobs';
 
-const Schedule = () => {
-  return(
-    <ScrollView contentContainerStyle={styles.container}>
-        <Text>Schedule</Text>
-        <FullCalendar
-          plugins={[ timeGridPlugin ]}
-          initialView="timeGridPlugin"
-        />
-        <View>
+export default function Schedule() {
+  const [date] = React.useState(new Date());
+  const [items, setItems] = useState([
+    {
+      title: 'Teste de CD',
+      startDate: moment().subtract(1, 'hour').toDate(),
+      endDate: moment().add(1, 'hour').toDate(),
+    },
+  ]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [title, setTitle] = useState("");
+  const [start, setStart] = useState(moment().toISOString());
+  const [end, setEnd] = useState(moment().add(1, 'hour').toISOString());
+
+  const handleAddEvent = () => {
+    setItems(prev => [
+      ...prev,
+      {
+        title,
+        startDate: new Date(start),
+        endDate: new Date(end),
+      }
+    ]);
+    setModalVisible(false);
+    setTitle("");
+  };
+
+  return (
+    <View style={{ flex: 1 }}>
+      <Button title="Add Event" onPress={() => setModalVisible(true)} />
+
+      <Modal visible={modalVisible} animationType="slide">
+        <View style={{ padding: 20 }}>
+          <Text>Title</Text>
+          <TextInput value={title} onChangeText={setTitle} placeholder="Event title" />
+          <Text>Start (ISO)</Text>
+          <TextInput value={start} onChangeText={setStart} placeholder="YYYY-MM-DDTHH:mm:ss" />
+          <Text>End (ISO)</Text>
+          <TextInput value={end} onChangeText={setEnd} placeholder="YYYY-MM-DDTHH:mm:ss" />
+          <Button title="Save Event" onPress={handleAddEvent} />
+          <Button title="Cancel" onPress={() => setModalVisible(false)} />
         </View>
-    </ScrollView>
+      </Modal>
+      
+      <ScrollView style={{ flex: 1, borderWidth: 2, borderColor: 'red' }}>
+          <Timetable
+              items={items}
+              renderItem={props => <ScheduleBlobs {...props}/>}
+              date={date}
+          />
+      </ScrollView>
+    </View>
   );
 }
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#f5e4e5', // Light pink background
-    },
-    topBar: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      backgroundColor: '#d9b4b5', // Darker pink
-      paddingHorizontal: 16,
-      paddingVertical: 12,
-    },
-    title: {
-      fontSize: 18,
-      fontWeight: 'bold',
-      color: '#000',
-    },
-    icon: {
-      width: 24,
-      height: 24,
-    },
-    content: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      paddingHorizontal: 16,
-    },
-    card: {
-      backgroundColor: '#fff',
-      borderRadius: 8,
-      padding: 16,
-      marginBottom: 16,
-      alignItems: 'center',
-      width: '90%',
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.2,
-      shadowRadius: 4,
-      elevation: 5,
-    },
-    cardIcon: {
-      width: 48,
-      height: 48,
-      marginBottom: 8,
-    },
-    cardTitle: {
-      fontSize: 18,
-      fontWeight: 'bold',
-      textAlign: 'center',
-      marginBottom: 4,
-    },
-    cardSubtitle: {
-      fontSize: 14,
-      textAlign: 'center',
-      color: '#555',
-      marginBottom: 12,
-    },
-    addButton: {
-      backgroundColor: '#000',
-      borderRadius: 50,
-      paddingVertical: 6,
-      paddingHorizontal: 16,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    addButtonText: {
-      fontSize: 26,
-      color: '#fff',
-      fontWeight: 'bold',
-    },
-    cardTime: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      marginBottom: 4,
-    },
-});
-
-export default Schedule;
