@@ -1,21 +1,25 @@
 import { useRouter } from "expo-router";
+import React from "react";
 import { useLayoutEffect, useState } from 'react';
 import moment from "moment"
-import Timetable from 'react-native-calendar-timetable'
 import { StyleSheet, Text, View, Button, FlatList, Image, ScrollView, TouchableOpacity } from "react-native";
+import FullCalendar from '@fullcalendar/react'
+import timeGridPlugin from '@fullcalendar/timegrid'
 
 const Schedule = () => {
-    const router = useRouter();
-
-    return (
-        <ScrollView contentContainerStyle={styles.container}>
-          <View style={styles.content}>
-          </View>
-        </ScrollView>
-    );
+  return(
+    <ScrollView contentContainerStyle={styles.container}>
+        <Text>Schedule</Text>
+        <FullCalendar
+          plugins={[ timeGridPlugin ]}
+          initialView="timeGridPlugin"
+        />
+        <View>
+        </View>
+    </ScrollView>
+  );
 }
-
-  const styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#f5e4e5', // Light pink background
