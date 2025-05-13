@@ -15,16 +15,16 @@ export default function Schedule() {
   ]);
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState("");
-  const [start, setStart] = useState(moment().toISOString());
-  const [end, setEnd] = useState(moment().add(1, 'hour').toISOString());
+  const [start, setStart] = useState(moment().format("YYYY-MM-DDTHH:mm"));
+  const [end, setEnd] = useState(moment().add(1, 'hour').format("YYYY-MM-DDTHH:mm"));
 
   const handleAddEvent = () => {
     setItems(prev => [
       ...prev,
       {
         title,
-        startDate: new Date(start),
-        endDate: new Date(end),
+        startDate: moment(start, "YYYY-MM-DDTHH:mm").toDate(),
+        endDate: moment(end, "YYYY-MM-DDTHH:mm").toDate(),
       }
     ]);
     setModalVisible(false);
