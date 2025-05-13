@@ -1,33 +1,39 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, TextInput, Modal } from 'react-native';
 import { useNavigation, useRouter } from "expo-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Profile = () => {
-    const router = useRouter();
-      const navigation = useNavigation();
-      useEffect(() => {
-        navigation.setOptions({
-          headerShown: true,
-        });
-      }, [navigation]);
-    
+  const router = useRouter();
+  const navigation = useNavigation();
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [name, setName] = useState("Nome");
+  const [newName, setNewName] = useState(name);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+    });
+  }, [navigation]);
+
+  const handleSaveName = () => {
+    setName(newName);
+    setIsModalVisible(false);
+  };
 
   return (
     <View style={styles.container}>
-   
-
       {/* Profile Section */}
       <View style={styles.profileSection}>
         <Image
-          source={require('../assets/images/Avatar.png')} // Substitua pelo caminho da imagem do avatar
+          source={require('../assets/images/Avatar.png')}
           style={styles.avatar}
         />
         <View style={styles.nameContainer}>
-          <Text style={styles.name}>Nome</Text>
-          <TouchableOpacity>
+          <Text style={styles.name}>{name}</Text>
+          <TouchableOpacity onPress={() => setIsModalVisible(true)}>
             <Image
-              source={require('../assets/images/Edit.png')} // Substitua pelo caminho da sua imagem
+              source={require('../assets/images/Edit.png')}
               style={styles.editIcon}
             />
           </TouchableOpacity>
@@ -51,6 +57,39 @@ const Profile = () => {
           <Text style={styles.arrow}>›</Text>
         </TouchableOpacity>
       </View>
+
+      {/* Modal */}
+      <Modal
+        visible={isModalVisible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setIsModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Edit Name</Text>
+            <TextInput
+              style={styles.input}
+              value={newName}
+              onChangeText={setNewName}
+            />
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={[styles.modalButton, { marginRight: 8 }]}
+                onPress={handleSaveName}
+              >
+                <Text style={styles.modalButtonText}>Save</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.modalButton}
+                onPress={() => setIsModalVisible(false)}
+              >
+                <Text style={styles.modalButtonText}>Cancel</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -58,23 +97,6 @@ const Profile = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  topBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: '#d9b4b5', // Darker pink
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#000',
-  },
-  icon: {
-    width: 24,
-    height: 24,
   },
   profileSection: {
     alignItems: 'center',
@@ -85,7 +107,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: '#e2dbff', // Purple background for avatar
+    backgroundColor: '#e2dbff',
   },
   nameContainer: {
     flexDirection: 'row',
@@ -123,6 +145,55 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#000',
+  },
+
+  // Modal styles
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    width: '80%',
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  input: {
+    width: '100%',
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 15,
+    paddingHorizontal: 8,
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginTop: 10,
+  },
+  modalButton: {
+    flex: 1,
+    paddingVertical: 10,
+    borderWidth: 2,
+    borderColor: '#000',
+    borderRadius: 5,
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+  },
+  modalButtonText: {
+    color: '#000',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 
