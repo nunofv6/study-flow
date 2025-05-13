@@ -40,28 +40,13 @@ const StudyOverview = () => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerShown: false,
+      headerShown: true,
     });
   }, [navigation]);
 
   return (
     <View style={styles.container}>
-      {/* Top Bar */}
-      <View style={styles.topBar}>
-        <TouchableOpacity>
-          <Image
-            source={require("../assets/images/Menu.png")}
-            style={styles.icon}
-          />
-        </TouchableOpacity>
-        <Text style={styles.title}>Study Overview</Text>
-        <TouchableOpacity onPress={() => router.push("/profile")}>
-          <Image
-            source={require("../assets/images/User.png")}
-            style={styles.icon}
-          />
-        </TouchableOpacity>
-      </View>
+
 
       {/* Chart Section */}
       <View style={styles.content}>
@@ -80,7 +65,6 @@ const StudyOverview = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5e4e5", // Light pink background
   },
   topBar: {
     flexDirection: "row",

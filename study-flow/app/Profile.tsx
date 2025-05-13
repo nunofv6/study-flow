@@ -7,7 +7,7 @@ const Profile = () => {
       const navigation = useNavigation();
       useEffect(() => {
         navigation.setOptions({
-          headerShown: false,
+          headerShown: true,
         });
       }, [navigation]);
     
@@ -15,23 +15,7 @@ const Profile = () => {
 
   return (
     <View style={styles.container}>
-      {/* Top Bar */}
-            {/* Top Bar */}
-            <View style={styles.topBar}>
-              <TouchableOpacity>
-                <Image
-                  source={require('../assets/images/Menu.png')} // Substitua pelo caminho da sua imagem
-                  style={styles.icon}
-                />
-              </TouchableOpacity>
-              <Text style={styles.title}>Profile</Text>
-              <TouchableOpacity onPress={() => router.push('/profile')}>
-                <Image
-                  source={require('../assets/images/User.png')} // Substitua pelo caminho da sua imagem
-                  style={styles.icon}
-                />
-              </TouchableOpacity>
-            </View>
+   
 
       {/* Profile Section */}
       <View style={styles.profileSection}>
@@ -54,14 +38,14 @@ const Profile = () => {
       <View style={styles.buttonSection}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => router.push('productivity')}
+          onPress={() => router.push('Productivity')}
         >
           <Text style={styles.buttonText}>Productivity</Text>
           <Text style={styles.arrow}>›</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => router.push('studyOverview')}
+          onPress={() => router.push('StudyOverview')}
         >
           <Text style={styles.buttonText}>Study Overview</Text>
           <Text style={styles.arrow}>›</Text>
@@ -74,7 +58,6 @@ const Profile = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5e4e5', // Light pink background
   },
   topBar: {
     flexDirection: 'row',

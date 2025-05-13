@@ -7,10 +7,10 @@ export default function Index() {
   return (
       <ScrollView>
         <Text style={{ textAlign: 'center' }}>For testing purposes</Text>
-        <OutlinedButton title="Go to About" onPress={() => router.push("/about")} />
-        <OutlinedButton title="Go to Dashboard" onPress={() => router.push("/dashboard")} />
-        <OutlinedButton title="Go to Schedule" onPress={() => router.push("/schedule")} />
-        <OutlinedButton title="Go to Calendar" onPress={() => router.push("/calendar")} />
+        <OutlinedButton title="Go to About" onPress={() => router.push("/About")} />
+        <OutlinedButton title="Go to Dashboard" onPress={() => router.push("/Dashboard")} />
+        <OutlinedButton title="Go to Schedule" onPress={() => router.push("/Schedule")} />
+        <OutlinedButton title="Go to Calendar" onPress={() => router.push("/Calendar")} />
         <Text style={{ textAlign: 'center' }}>Study Flow</Text>
       </ScrollView>
   );
