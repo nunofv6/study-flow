@@ -1,57 +1,106 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import React, { useEffect } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions } from "react-native";
 import { useNavigation, useRouter } from "expo-router";
-import { useEffect } from "react";
+import { PieChart } from "react-native-chart-kit";
+
+const screenWidth = Dimensions.get("window").width;
+
+const pieDataLastSession = [
+  {
+    name: "Study Time",
+    population: 70,
+    color: "#d9b4b5",
+    legendFontColor: "#222",
+    legendFontSize: 14,
+  },
+  {
+    name: "Procrastination Time",
+    population: 30,
+    color: "#f5e4e7",
+    legendFontColor: "#222",
+    legendFontSize: 14,
+  },
+];
+
+const pieDataAllTime = [
+  {
+    name: "Study Time",
+    population: 60,
+    color: "#d9b4b5",
+    legendFontColor: "#222",
+    legendFontSize: 14,
+  },
+  {
+    name: "Procrastination Time",
+    population: 40,
+    color: "#f5e4e5",
+    legendFontColor: "#222",
+    legendFontSize: 14,
+  },
+];
 
 const StudyStatistics = () => {
-    const router = useRouter();
+  const router = useRouter();
+  const navigation = useNavigation();
 
-      const navigation = useNavigation();
-      useEffect(() => {
-        navigation.setOptions({
-          headerShown: false,
-        });
-      }, [navigation]);
-    
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
-    
-    {/* Top Bar */}
-    <View style={styles.topBar}>
+      {/* Top Bar */}
+      <View style={styles.topBar}>
         <TouchableOpacity>
-        <Image
-            source={require('../assets/images/Menu.png')} // Substitua pelo caminho da sua imagem
+          <Image
+            source={require('../assets/images/Menu.png')}
             style={styles.icon}
-        />
+          />
         </TouchableOpacity>
-        <Text style={styles.title}>Productivuty</Text>
+        <Text style={styles.title}>Productivity</Text>
         <TouchableOpacity onPress={() => router.push('/profile')}>
-        <Image
-            source={require('../assets/images/User.png')} // Substitua pelo caminho da sua imagem
+          <Image
+            source={require('../assets/images/User.png')}
             style={styles.icon}
-        />
+          />
         </TouchableOpacity>
-    </View>
+      </View>
 
       {/* Statistics Section */}
       <View style={styles.content}>
         {/* Last Studying Session */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Last studying session:</Text>
-          <Image
-            source={require('../assets/images/Chart2.png')} // Substitua pelo caminho da sua imagem
-            style={styles.chart}
-            resizeMode="contain"
+          <PieChart
+            data={pieDataLastSession}
+            width={screenWidth * 0.9}
+            height={220}
+            chartConfig={{
+              color: (opacity = 1) => `rgba(0,0,0,${opacity})`,
+            }}
+            accessor={"population"}
+            backgroundColor={"transparent"}
+            paddingLeft={"10"}
+            absolute
           />
         </View>
 
         {/* All Time */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>All time:</Text>
-          <Image
-            source={require('../assets/images/Chart3.png')} // Substitua pelo caminho da sua imagem
-            style={styles.chart}
-            resizeMode="contain"
+          <PieChart
+            data={pieDataAllTime}
+            width={screenWidth * 0.9}
+            height={220}
+            chartConfig={{
+              color: (opacity = 1) => `rgba(0,0,0,${opacity})`,
+            }}
+            accessor={"population"}
+            backgroundColor={"transparent"}
+            paddingLeft={"10"}
+            absolute
           />
         </View>
       </View>
@@ -62,13 +111,13 @@ const StudyStatistics = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5e4e5', // Light pink background
+    backgroundColor: '#f5e4e5',
   },
   topBar: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#d9b4b5', // Darker pink
+    backgroundColor: '#d9b4b5',
     paddingHorizontal: 16,
     paddingVertical: 12,
   },
@@ -95,10 +144,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000',
     marginBottom: 8,
-  },
-  chart: {
-    width: '90%',
-    height: 200, // Ajuste conforme necessário para o tamanho do gráfico
   },
 });
 
