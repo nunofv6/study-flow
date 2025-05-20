@@ -67,11 +67,12 @@ const Profile = () => {
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Edit Name</Text>
+            <Text style={styles.modalTitle}>Select New Name</Text>
             <TextInput
               style={styles.input}
               value={newName}
               onChangeText={setNewName}
+              placeholder="Enter new name"
             />
             <View style={styles.modalButtons}>
               <TouchableOpacity
@@ -90,6 +91,24 @@ const Profile = () => {
           </View>
         </View>
       </Modal>
+
+      {/* Bottom Buttons */}
+      <View style={styles.bottomButtonsContainer}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.push('Settings')}
+        >
+          <Text style={styles.buttonText}>Settings</Text>
+          <Text style={styles.arrow}>›</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => console.log('Logout pressed')}
+        >
+          <Text style={styles.buttonText}>Logout</Text>
+          <Text style={styles.arrow}>›</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -97,6 +116,7 @@ const Profile = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingBottom: 100, // espaço para os botões fixos
   },
   profileSection: {
     alignItems: 'center',
@@ -146,7 +166,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000',
   },
-
   // Modal styles
   modalOverlay: {
     flex: 1,
@@ -194,6 +213,14 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  // Fixed bottom buttons
+  bottomButtonsContainer: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    paddingHorizontal: 16,
+    borderTopColor: '#ccc',
   },
 });
 
