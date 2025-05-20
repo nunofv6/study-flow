@@ -50,9 +50,7 @@ const PRIORITY_COLORS: Record<NewEventData['priority'], string> = {
 const Calendar: React.FC = () => {
   const router = useRouter();
 
-  const [events, setEvents] = useState<EventInput[]>([
-    { id: 1, title: 'Teste C', start: '2025-05-16', allDay: true }
-  ]);
+  const [events, setEvents] = useState<EventInput[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [form, setForm] = useState<NewEventData>({
     title: '',

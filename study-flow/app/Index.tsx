@@ -11,6 +11,7 @@ export default function Index() {
         <OutlinedButton title="Go to Dashboard" onPress={() => router.push("/Dashboard")} />
         <OutlinedButton title="Go to Schedule" onPress={() => router.push("/Schedule")} />
         <OutlinedButton title="Go to Calendar" onPress={() => router.push("/Calendar")} />
+        <OutlinedButton title="Go to Study Mode" onPress={() => router.push("/StudyMode")} />
         <Text style={{ textAlign: 'center' }}>Study Flow</Text>
       </ScrollView>
   );
