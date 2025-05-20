@@ -1,9 +1,15 @@
-import { useRouter } from "expo-router";
-
+import { useNavigation, useRouter } from "expo-router";
+import { useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 const Dashboard = () => {
   const router = useRouter();
+  const navigation = useNavigation();
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+    });
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
@@ -42,7 +48,6 @@ const Dashboard = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5e4e5', // Light pink background
   },
   topBar: {
     flexDirection: 'row',
